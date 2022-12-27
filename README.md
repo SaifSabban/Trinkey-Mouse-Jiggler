@@ -1,5 +1,5 @@
 # Adafruit Trinkey Mouse Jiggler (Arduino)
- This arduino code deminstrats a simgle function that allows your Adafruit Trinkey (or other ATSAMD21 device) to act like a computer mouse and will randomly move every few seconds
+ This arduino code deminstrats a single function that allows your Adafruit Trinkey (or other ATSAMD21 device) to act like a computer mouse and will randomly move every few seconds
 
 ## Device List
 * [Trinket M0](https://www.adafruit.com/product/3500)
