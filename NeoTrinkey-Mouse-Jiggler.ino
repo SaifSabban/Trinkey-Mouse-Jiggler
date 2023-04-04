@@ -37,19 +37,19 @@ bool TouchButton() {
 
   static bool isTouching; // Checks when a touch occurs
   static bool LastTouchingState; // last value of touch
-  static bool TouchToggle; // acitivates touch after debouce
+  static bool TouchToggle; // acitivates touch after debounce
 
-  static unsigned long lastDebounceTime = 0; // Debouce timer to stop false touch
+  static unsigned long lastDebounceTime = 0; // Debounce timer to stop false touch
 
   if ((touch1 > 500) || (touch2 > 500)) isTouching = 1; // If touching set to istouching 1
   else isTouching = 0; // If not touching set to istouching 0
 
 
   if (isTouching != LastTouchingState) { // is senses a touch
-    lastDebounceTime = millis(); // Set lastDebouce timer to current time
+    lastDebounceTime = millis(); // Set lastdebounce timer to current time
   }
 
-  if ((millis() - lastDebounceTime) > 50) { // If Debouce timer passes 50 milliseconds
+  if ((millis() - lastDebounceTime) > 50) { // If Debounce timer passes 50 milliseconds
     if (isTouching != TouchToggle) { // If the touch avlue and toggle value are not the same
       TouchToggle = isTouching; // Sets the toggle value to that of actual touch value
 
