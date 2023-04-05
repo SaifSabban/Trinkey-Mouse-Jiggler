@@ -61,9 +61,7 @@ bool TouchButton() { // The touch button function, treats the touch sensors as m
   if ((touch1 > 500) || (touch2 > 500)) isTouching = 1; // If touching set to istouching 1
   else isTouching = 0; // If not touching set to istouching 0
 
-  if (isTouching != LastTouchingState) { // is senses a touch
-    lastDebounceTime = millis(); // Set lastdebounce timer to current time
-  }
+  if (isTouching != LastTouchingState) lastDebounceTime = millis(); // Set lastdebounce timer to current time if senses a touch
 
   if ((millis() - lastDebounceTime) > 50) { // If Debounce timer passes 50 milliseconds
     if (isTouching != TouchToggle) { // If the touch avlue and toggle value are not the same
