@@ -29,55 +29,6 @@ void loop() { // The main loop of you code that will run indefinitely
   }
 }
 
-bool TouchButton() {
-  uint16_t touch1 = Touch1.measure(); // Measures Right Touch
-  uint16_t touch2 = Touch2.measure(); // Measures Left Touch
-
-  static bool State = 1; // Set the current state to high
-
-  static bool isTouching; // Checks when a touch occurs
-  static bool LastTouchingState; // last value of touch
-  static bool TouchToggle; // acitivates touch after debounce
-
-  static unsigned long lastDebounceTime = 0; // Debounce timer to stop false touch
-
-  if ((touch1 > 500) || (touch2 > 500)) isTouching = 1; // If touching set to istouching 1
-  else isTouching = 0; // If not touching set to istouching 0
-
-
-  if (isTouching != LastTouchingState) { // is senses a touch
-    lastDebounceTime = millis(); // Set lastdebounce timer to current time
-  }
-
-  if ((millis() - lastDebounceTime) > 50) { // If Debounce timer passes 50 milliseconds
-    if (isTouching != TouchToggle) { // If the touch avlue and toggle value are not the same
-      TouchToggle = isTouching; // Sets the toggle value to that of actual touch value
-
-      if (TouchToggle == HIGH) { // If debounced and touching
-        State = !State; // Change stat to what it isn't
-      }
-    }
-  }
-
-  if (TouchToggle) { // If touching sensors
-    if (State) { // If State is 1
-      Square.fill(Square.Color(0, 0, 255)); // Set Neopixeel colour to Blue
-      Square.show(); // Tell Neopixel to show set colour
-    }
-    else { // If State is 0
-      Square.fill(Square.Color(255, 0, 0)); // Set Neopixeel colour to Red
-      Square.show(); // Tell Neopixel to show set colour
-    }
-  }
-  else if (!TouchToggle) { // If not touching sensors
-    Square.fill(Square.Color(0, 0, 0)); // Set Neopixeel colour to off
-    Square.show(); // Tell Neopixel to show set colour
-  }
-
-  LastTouchingState = isTouching; // Sets the Previous Touch Value to the current value
-  return State; // Returns State Value
-}
-
 void MouseJiggler(unsigned int Function_Interval) { // The mouse jiggler function, uses and input for the mean time interval
   static unsigned long interval_Timer; // The is an unsigned long that will remember the last time the if statement was run
   static int Jiggle_interval; // The is an in that will keep the randomised Jiggle_interval in the function
@@ -93,4 +44,48 @@ void MouseJiggler(unsigned int Function_Interval) { // The mouse jiggler functio
     Jiggle_interval = random(Function_Interval - (Function_Interval / 2), Function_Interval + (Function_Interval / 2)); // Sets a new random Jiggle_interval that is +- 50% of the Function_Interval
     interval_Timer = millis(); // Sets the interval_Timer to th current time at the end of the if statement
   }
+}
+
+bool TouchButton() { // The touch button function, treats the touch sensors as momentary buttons
+  uint16_t touch1 = Touch1.measure(); // Measures Right Touch
+  uint16_t touch2 = Touch2.measure(); // Measures Left Touch
+
+  static bool State; // Set the current state to high
+
+  static bool isTouching; // Checks when a touch occurs
+  static bool LastTouchingState; // last value of touch
+  static bool TouchToggle; // acitivates touch after debounce
+
+  static unsigned long lastDebounceTime = 0; // Debounce timer to stop false touch
+
+  if ((touch1 > 500) || (touch2 > 500)) isTouching = 1; // If touching set to istouching 1
+  else isTouching = 0; // If not touching set to istouching 0
+
+  if (isTouching != LastTouchingState) { // is senses a touch
+    lastDebounceTime = millis(); // Set lastdebounce timer to current time
+  }
+
+  if ((millis() - lastDebounceTime) > 50) { // If Debounce timer passes 50 milliseconds
+    if (isTouching != TouchToggle) { // If the touch avlue and toggle value are not the same
+      TouchToggle = isTouching; // Sets the toggle value to that of actual touch value
+
+      if (TouchToggle) { // If debounced and touching
+        State = !State; // Change stat to what it isn't
+
+        if (State) { // If State is 1
+          Square.fill(Square.Color(0, 0, 255)); // Set Neopixeel colour to Blue
+          Square.show(); // Tell Neopixel to show set colour
+        } else { // If State is 0
+          Square.fill(Square.Color(255, 0, 0)); // Set Neopixeel colour to Red
+          Square.show(); // Tell Neopixel to show set colour
+        }
+      } else { // If not touching sensors
+        Square.fill(Square.Color(0, 0, 0)); // Set Neopixeel colour to off
+        Square.show(); // Tell Neopixel to show set colour
+      }
+    }
+  }
+
+  LastTouchingState = isTouching; // Sets the Previous Touch Value to the current value
+  return State; // Returns State Value
 }
