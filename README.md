@@ -21,3 +21,5 @@
 ## Notes
 If you'd like to change the frequency of the code running, just change the value of: 
 > int Function_Interval
+
+There is an additional CircuitPython Version of this code that been proven to work on the Pi Pico. To you is you must use the adafruit_hid library
