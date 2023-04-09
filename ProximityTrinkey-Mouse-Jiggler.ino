@@ -34,7 +34,7 @@ void loop() { // The main loop of you code that will run indefinitely
   GestureCheck(ActiveateMouse); // The Gesture function
 }
 
-void GestureCheck(bool Light) { // The Gesture Check function, uses and input from APDS9960 to perform keyborad functions
+void GestureCheck(bool Light) { // The Gesture Check function, uses and input from APDS9960 to perform keyboard functions
   //  char ctrlKey = KEY_LEFT_GUI; // Control Key option for OSX.
   char ctrlKey = KEY_LEFT_CTRL; // Control Key option for Windows and Linux.
   static uint8_t LastGesture; // Last Gesture variable
